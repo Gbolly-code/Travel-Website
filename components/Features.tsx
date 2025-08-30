@@ -1,6 +1,28 @@
+'use client'
+
 import { FEATURES } from '@/constants'
 import Image from 'next/image'
 import React from 'react'
+import { motion, Variants } from "framer-motion"
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.25,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+}
 
 const Features = () => {
   return (
@@ -16,7 +38,12 @@ const Features = () => {
           />
         </div>
 
-        <div className="z-20 flex w-full flex-col lg:w-[60%]">
+        <motion.div className="z-20 flex w-full flex-col lg:w-[60%]"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, amount: 0.2 }}>
+
           <div className='relative'>
             <Image
               src="/camp.svg"
@@ -27,7 +54,11 @@ const Features = () => {
             />
             <h2 className="bold-40 lg:bold-64">Our Features</h2>
           </div>
-          <ul className="mt-10 grid gap-10 md:grid-cols-2 lg:mg-20 lg:gap-20">
+          <motion.ul className="mt-10 grid gap-10 md:grid-cols-2 lg:mt-20 lg:gap-20"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, amount: 0.2}}>
             {FEATURES.map((feature) => (
               <FeatureItem 
                 key={feature.title}
@@ -36,22 +67,24 @@ const Features = () => {
                 description={feature.description}
               />
             ))}
-          </ul>
-        </div>
+          </motion.ul>
+        </motion.div>
       </div>
     </section>
   )
 }
 
-type FeatureItem = {
+type FeatureItemProps = {
   title: string;
   icon: string;
   description: string;
 }
 
-const FeatureItem = ({ title, icon, description }: FeatureItem) => {
+const FeatureItem = ({ title, icon, description }: FeatureItemProps) => {
   return (
-    <li className="flex w-full flex-1 flex-col items-start">
+    <motion.li className="flex w-full flex-1 flex-col items-start"
+    variants={itemVariants}
+    >
       <div className="rounded-full p-4 lg:p-7 bg-green-50">
         <Image src={icon} alt="map" width={28} height={28} />
       </div>
@@ -61,7 +94,7 @@ const FeatureItem = ({ title, icon, description }: FeatureItem) => {
       <p className="regular-16 mt-5 bg-white/80 text-gray-30 lg:mt-[30px] lg:bg-none">
         {description}
       </p>
-    </li>
+    </motion.li>
   )
 }
 
