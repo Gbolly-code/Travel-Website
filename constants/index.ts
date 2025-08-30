@@ -52,7 +52,7 @@ export const FOOTER_LINKS = [
   {
     title: 'Learn More',
     links: [
-      'About Hilink',
+      'About Us',
       'Press Releases',
       'Environment',
       'Jobs',
@@ -62,7 +62,7 @@ export const FOOTER_LINKS = [
   },
   {
     title: 'Our Community',
-    links: ['Climbing xixixi', 'Hiking hilink', 'Hilink kinthill'],
+    links: ['Climbing', 'Hiking', 'Hilink kinthill'],
   },
 ];
 
