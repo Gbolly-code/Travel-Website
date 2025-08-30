@@ -1,9 +1,14 @@
+"use client"
+
 import { NAV_LINKS } from "@/constants"
 import Image from "next/image"
 import Link from "next/link"
 import Button from "./Button"
+import { useState } from "react"
 
 const Navbar = () => {
+
+  const [menuOpen, setMenuOpen] = useState(false)
   return (
     <nav className="flexBetween max-container padding-container relative z-30 py-5">
       <Link href="/">
@@ -26,14 +31,32 @@ const Navbar = () => {
           variant="btn_dark_green"
         />
       </div>
-
+      
+      <div className="lg:hidden">
       <Image 
-        src="menu.svg"
+        src={menuOpen ? "/close.svg" : "/menu.svg"}
         alt="menu"
         width={32}
         height={32}
-        className="inline-block cursor-pointer lg:hidden"
+        className="cursor-pointer"
+        onClick={() => setMenuOpen(!menuOpen)}
       />
+      </div>
+
+      {menuOpen && (
+        <div className="absolute top-16 right-4 bg-white shadow-lg rounded-lg p-6 flex flex-col gap-4 z-40 lg:hidden">
+          {NAV_LINKS.map((link) => (
+            <Link
+              href={link.href}
+              key={link.key}
+              className="text-gray-900 font-medium hover:text-green-600 transition"
+              onClick={() => setMenuOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      )}
     </nav>
   )
 }
