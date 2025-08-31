@@ -24,11 +24,25 @@ const itemVariants: Variants = {
   },
 }
 
+const phoneVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.8, rotate: -15 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    rotate: 0,
+    transition: { duration: 0.7, ease: "easeOut" },
+  },
+}
+
 const Features = () => {
   return (
     <section className="flex-col flexCenter overflow-hidden bg-feature-bg bg-center bg-no-repeat py-24">
       <div className="max-container padding-container relative w-full flex justify-end">
-        <div className="flex flex-1 lg:min-h-[900px]">
+        <motion.div className="flex flex-1 lg:min-h-[900px]"
+        variants={phoneVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: false }}>
           <Image
             src="/phone.png"
             alt="phone"
@@ -36,7 +50,7 @@ const Features = () => {
             height={1000}
             className="feature-phone"
           />
-        </div>
+        </motion.div>
 
         <motion.div className="z-20 flex w-full flex-col lg:w-[60%]"
           variants={containerVariants}
